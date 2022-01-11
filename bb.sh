@@ -13,7 +13,7 @@ IMX_RELEASE="imx-5.10.35-2.0.0"
 YOCTO_DIR="${DOCKER_WORKDIR}/${IMX_RELEASE}-build"
 MACHINE="imx8mmevk"
 DISTRO="fsl-imx-xwayland"
-IMAGES="imx-image-minimal" # "imx-image-multimedia"
+IMAGES="core-image-minimal" # "core-image-multimedia"
 REMOTE="https://source.codeaurora.org/external/imx/imx-manifest"
 BRANCH="imx-linux-hardknott"
 MANIFEST=${IMX_RELEASE}".xml"
@@ -41,8 +41,8 @@ EULA=1 MACHINE="${MACHINE}" DISTRO="${DISTRO}" source imx-setup-release.sh -b bu
 # update kernel config
 if [[ -d "$(pwd)/tmp/" ]]; then
     echo "using $(pwd)/$K_DEFCONFIG"
-    cp ./../../../$K_DEFCONFIG ./tmp/work/cortexa53-crypto-mx8mn-poky-linux/linux-imx-headers/5.10-r0/git/arch/arm64/configs/
-    cp ./../../../$K_DEFCONFIG ./tmp/work-shared/imx8mnevk/kernel-source/arch/arm64/configs/
+    cp ./../../../$K_DEFCONFIG ./tmp/work/cortexa53-crypto-mx8mm-poky-linux/linux-imx-headers/5.10-r0/git/arch/arm64/configs/
+    cp ./../../../$K_DEFCONFIG ./tmp/work-shared/imx8mmevk/kernel-source/arch/arm64/configs/
 fi
 
 function print_help

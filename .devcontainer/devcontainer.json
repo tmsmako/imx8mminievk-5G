@@ -13,7 +13,7 @@
 			"YOCTO_DIR": "/opt/yocto/imx-5.10.35-2.0.0-build",
 			"MACHINE": "imx8mmevk",
 			"DISTRO": "fsl-imx-xwayland",
-			"IMAGES": "imx-image-multimedia",
+			"IMAGES": "core-image-minimal",
 			"REMOTE": "https://source.codeaurora.org/external/imx/imx-manifest",
 			"BRANCH": "imx-linux-hardknott",
 			"MANIFEST": "imx-5.10.35-2.0.0.xml",
