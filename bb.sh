@@ -13,11 +13,12 @@ IMX_RELEASE="imx-5.10.35-2.0.0"
 YOCTO_DIR="${DOCKER_WORKDIR}/${IMX_RELEASE}-build"
 MACHINE="imx8mmevk"
 DISTRO="fsl-imx-xwayland"
-IMAGES="core-image-minimal" # "core-image-multimedia"
+IMAGES="imx-image-core" # core-image-minimal, imx-image-multimedia
 REMOTE="https://source.codeaurora.org/external/imx/imx-manifest"
 BRANCH="imx-linux-hardknott"
 MANIFEST=${IMX_RELEASE}".xml"
-K_DEFCONFIG="imx_v8_defconfig"
+K_DEFCONFIG="defconfig"
+K_BUILDDIR="/tmp/work/imx8mmevk-poky-linux/linux-imx/5.10.35+gitAUTOINC+ef3f2cfc60-r0/"
 
 # Create build folder
 mkdir -p ${YOCTO_DIR}
@@ -39,19 +40,20 @@ repo sync -j12
 EULA=1 MACHINE="${MACHINE}" DISTRO="${DISTRO}" source imx-setup-release.sh -b build_${DISTRO}
 
 # update kernel config
-if [[ -d "$(pwd)/tmp/" ]]; then
+if [[ -d "$(pwd)$K_BUILDDIR" ]]; then
     echo "using $(pwd)/$K_DEFCONFIG"
-    cp ./../../../$K_DEFCONFIG ./tmp/work/cortexa53-crypto-mx8mm-poky-linux/linux-imx-headers/5.10-r0/git/arch/arm64/configs/
-    cp ./../../../$K_DEFCONFIG ./tmp/work-shared/imx8mmevk/kernel-source/arch/arm64/configs/
+    cp ./../../../$K_DEFCONFIG ./$K_BUILDDIR/defconfig
 fi
 
 function print_help
 {
     echo ""
     echo "Usage: bb [args]"
-    echo "  -b --build [target]     build a specific image or recipe"
-    echo "  -c --compile [target]   run (force) tasks starting from 'do_compile' on a specific recipe"
-    echo "  -r --rebuild [target]   re-build a specific image or recipe (clears sstate-cache)"
+    echo "  -b --build [target]         build a specific image or recipe"
+    echo "  -c --compile [target]       run (force) tasks starting from 'do_compile' on a specific recipe"
+    echo "  -r --rebuild [target]       re-build a specific image or recipe (clears sstate-cache)"
+    echo "  -d --dependencies [target]  show dependencies of recipe/image"
+    echo "  -m --menuconfig             execute menuconfig on virtual/kernel"
     echo ""
     echo " just run without any arguments to build $IMAGES (default)"
     echo ""
@@ -91,7 +93,22 @@ case "$@" in
         fi
         echo "* (re-)compile $2"
         # bitbake -f -c compile $2
+        # bitbake $2
         bitbake $2 -C compile
+        ;;
+    -d*|--dependencies*)
+        if [ $# -ne 2 ]; then
+            print_help
+            exit -1
+        fi
+        bitbake -g $2 && clear && cat ./pn-buildlist
+        ;;
+    -m*|--menuconfig*)
+        if [ $# -ne 1 ]; then
+            print_help
+            exit -1
+        fi
+        bitbake virtual/kernel -c menuconfig
         ;;
     *)
         if [ $# -ne 0 ]; then
