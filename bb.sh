@@ -6,6 +6,13 @@
 # immediately exit on error
 set -e
 
+if [ -f /.dockerenv ]; then
+    echo "Running from devcontainer $(hostname) ..";
+else
+    echo "ERROR: Must run from container";
+    exit 1
+fi
+
 # environment variables
 DOCKER_IMAGE_TAG="imx-yocto"
 DOCKER_WORKDIR="/workspaces/imx8mminievk/yocto"
@@ -24,8 +31,8 @@ mkdir -p ${YOCTO_DIR}
 cd ${YOCTO_DIR}
 
 # configure git user (required for repo setup script)
-git config --global user.name "vscode"
-git config --global user.email "dev@example.org"
+git config --global user.name "pentaloon"
+git config --global user.email "pentaloon@gmail.com"
 
 # Init repo
 repo init \
@@ -40,14 +47,14 @@ EULA=1 MACHINE="${MACHINE}" DISTRO="${DISTRO}" source imx-setup-release.sh -b bu
 
 # update kernel config - this method is not preferred, create a new layer instead
 # if [[ -d "$(pwd)$K_BUILDDIR" ]]; then
-#     echo "overriding $K_DEFCONFIG"
+#     echo "* overriding kernel config"
 #     cp ./../../../defconfig ./$K_BUILDDIR/defconfig
 #     cp ./../../../.config ./$K_BUILDDIR/build/.config
 # fi
 
 # override local conf - this method is not preferred, create a new layer instead
 if [[ -d "$(pwd)" ]]; then
-    echo "overriding local.conf.."
+    echo "* overriding local.conf"
     cp ./../../../local.conf ./conf/local.conf
 fi
 
