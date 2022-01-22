@@ -17,7 +17,6 @@ IMAGES="imx-image-core" # core-image-minimal, imx-image-multimedia
 REMOTE="https://source.codeaurora.org/external/imx/imx-manifest"
 BRANCH="imx-linux-hardknott"
 MANIFEST=${IMX_RELEASE}".xml"
-K_DEFCONFIG="defconfig"
 K_BUILDDIR="/tmp/work/imx8mmevk-poky-linux/linux-imx/5.10.35+gitAUTOINC+ef3f2cfc60-r0/"
 
 # Create build folder
@@ -34,15 +33,22 @@ repo init \
     -b ${BRANCH} \
     -m ${MANIFEST}
 
-repo sync -j12
+repo sync -j8
 
 # source the yocto env
 EULA=1 MACHINE="${MACHINE}" DISTRO="${DISTRO}" source imx-setup-release.sh -b build_${DISTRO}
 
-# update kernel config
-if [[ -d "$(pwd)$K_BUILDDIR" ]]; then
-    echo "using $(pwd)/$K_DEFCONFIG"
-    cp ./../../../$K_DEFCONFIG ./$K_BUILDDIR/defconfig
+# update kernel config - this method is not preferred, create a new layer instead
+# if [[ -d "$(pwd)$K_BUILDDIR" ]]; then
+#     echo "overriding $K_DEFCONFIG"
+#     cp ./../../../defconfig ./$K_BUILDDIR/defconfig
+#     cp ./../../../.config ./$K_BUILDDIR/build/.config
+# fi
+
+# override local conf - this method is not preferred, create a new layer instead
+if [[ -d "$(pwd)" ]]; then
+    echo "overriding local.conf.."
+    cp ./../../../local.conf ./conf/local.conf
 fi
 
 function print_help

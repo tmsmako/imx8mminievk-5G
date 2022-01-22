@@ -4,6 +4,8 @@ https://www.nxp.com/design/software/embedded-software/i-mx-software/embedded-lin
 https://www.nxp.com/docs/en/user-guide/IMX_YOCTO_PROJECT_USERS_GUIDE.pdf
 https://source.codeaurora.org/external/imx/imx-docker/tree/
 https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Useful-bitbake-commands/ta-p/1128559
+https://easylinuxji.blogspot.com/2019/03/replace-default-splash-screen-in-yocto.html
+https://www.nxp.com/design/training/i-mx-8m-mini-and-linux-online-hands-on:TIP-I-MX-8M-MINI-AND-LINUX-ONLINE-HANDS-ON
 
 # kernel
 
@@ -14,6 +16,18 @@ https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Useful-bitbake-comma
 * save defconfig `make savedefconfig`
 * overwrite defconfig file `yocto/imx-5.10.35-2.0.0-build/build_fsl-imx-xwayland/tmp/work/imx8mmevk-poky-linux/linux-imx/5.10.35+gitAUTOINC+ef3f2cfc60-r0/defconfig` 
 * rebuild kernel
+
+# add recipes to image
+* yocto/imx-5.10.35-2.0.0-build/conf/local.conf
+* yocto/imx-5.10.35-2.0.0-build/build_fsl-imx-xwayland/conf/local.conf
+```
+# package management
+IMAGE_INSTALL_append = " gnupg"
+
+# modem support
+IMAGE_INSTALL_append = " ppp"
+```
+* rebuild image
 
 # get list of recipes
 run `bitbake -g $IMAGES` then look into the generated file 'pn-buildlist'
