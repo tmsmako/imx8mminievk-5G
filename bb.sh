@@ -7,7 +7,7 @@
 set -e
 
 if [ -f /.dockerenv ]; then
-    echo "Running from devcontainer $(hostname) ..";
+    echo "Running from container $(hostname) ..";
 else
     echo "ERROR: Must run from container";
     exit 1
