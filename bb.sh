@@ -1,11 +1,9 @@
 #!/bin/bash
-# This script is expected to run in devcontainer
-# Building the core image consumes ~ 115 GB. 
-# Before kicking off a build, make sure that you have enough free space on the drive
 
 # immediately exit on error
 set -e
 
+# make sure that we are running from container
 if [ -f /.dockerenv ]; then
     echo "Running from container $(hostname) ..";
 else
@@ -16,7 +14,7 @@ fi
 # environment variables
 DOCKER_IMAGE_TAG="imx-yocto"
 DOCKER_WORKDIR="/workspaces/imx8mminievk/yocto"
-IMX_RELEASE="imx-5.10.35-2.0.0"
+IMX_RELEASE="imx-5.4.70-2.3.0"
 YOCTO_DIR="${DOCKER_WORKDIR}/${IMX_RELEASE}-build"
 MACHINE="imx8mmevk"
 DISTRO="fsl-imx-xwayland"
@@ -53,10 +51,10 @@ EULA=1 MACHINE="${MACHINE}" DISTRO="${DISTRO}" source imx-setup-release.sh -b bu
 # fi
 
 # override local conf - this method is not preferred, create a new layer instead
-if [[ -d "$(pwd)" ]]; then
-    echo "* overriding local.conf"
-    cp ./../../../local.conf ./conf/local.conf
-fi
+# if [[ -d "$(pwd)" ]]; then
+#     echo "* overriding local.conf"
+#     cp ./../../../local.conf ./conf/local.conf
+# fi
 
 function print_help
 {
