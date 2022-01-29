@@ -14,13 +14,13 @@ fi
 # environment variables
 DOCKER_IMAGE_TAG="imx-yocto"
 DOCKER_WORKDIR="/workspaces/imx8mminievk/yocto"
-IMX_RELEASE="imx-5.4.70-2.3.0"
+IMX_RELEASE="imx-5.4.70-2.3.5"
 YOCTO_DIR="${DOCKER_WORKDIR}/${IMX_RELEASE}-build"
 MACHINE="imx8mmevk"
 DISTRO="fsl-imx-xwayland"
 IMAGES="imx-image-core" # core-image-minimal, imx-image-multimedia
 REMOTE="https://source.codeaurora.org/external/imx/imx-manifest"
-BRANCH="imx-linux-hardknott"
+BRANCH="imx-linux-zeus"
 MANIFEST=${IMX_RELEASE}".xml"
 # K_BUILDDIR="/tmp/work/imx8mmevk-poky-linux/linux-imx/5.10.35+gitAUTOINC+ef3f2cfc60-r0/"
 

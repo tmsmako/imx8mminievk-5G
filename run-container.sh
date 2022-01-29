@@ -1,7 +1,11 @@
 #!/bin/bash
 if [ "$TERM_PROGRAM" == "vscode" ]; then
-	echo "must run outside of vscode"
+	echo "ERROR: must run outside of vscode"
 	exit 1
+fi
+if [ -f /.dockerenv ]; then
+    echo "ERROR: must run from host";
+    exit 2
 fi
 
 docker run -ti --sig-proxy=false \
