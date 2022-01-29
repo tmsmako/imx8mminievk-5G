@@ -22,7 +22,7 @@ IMAGES="imx-image-core" # core-image-minimal, imx-image-multimedia
 REMOTE="https://source.codeaurora.org/external/imx/imx-manifest"
 BRANCH="imx-linux-hardknott"
 MANIFEST=${IMX_RELEASE}".xml"
-K_BUILDDIR="/tmp/work/imx8mmevk-poky-linux/linux-imx/5.10.35+gitAUTOINC+ef3f2cfc60-r0/"
+# K_BUILDDIR="/tmp/work/imx8mmevk-poky-linux/linux-imx/5.10.35+gitAUTOINC+ef3f2cfc60-r0/"
 
 # Create build folder
 mkdir -p ${YOCTO_DIR}
