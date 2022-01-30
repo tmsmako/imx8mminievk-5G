@@ -9,7 +9,7 @@ if [ -f /.dockerenv ]; then
 fi
 
 docker run -ti --sig-proxy=false \
---mount type=bind,source=/home/mako/ws/github/imx8mminievk,target=/workspaces/imx8mminievk \
+--mount type=bind,source=$(pwd),target=/workspaces/imx8mminievk \
 --mount type=volume,src=vscode,dst=/vscode \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
 --workdir /workspaces/imx8mminievk \
