@@ -11,25 +11,24 @@ https://elinux.org/Bitbake_Cheat_Sheet
 
 # kernel
 
-# enable generic cellular modem support via USB serial connection
+## enable generic cellular modem support via USB serial connection
 * run `bitbake virtual/kernel -c menuconfig`
 * set `CONFIG_USB_SERIAL_OPTION=y` by selecting *device drivers/usb support/usb serial converter support/usb driver for GSM and CDMA modems*
 * save `.config`
-* save defconfig `make savedefconfig`
-* overwrite defconfig file `yocto/imx-5.10.35-2.0.0-build/build_fsl-imx-xwayland/tmp/work/imx8mmevk-poky-linux/linux-imx/5.10.35+gitAUTOINC+ef3f2cfc60-r0/defconfig` 
+* save defconfig `ARCH=arm64 make savedefconfig`
+* overwrite defconfig file `yocto/imx-{ver}-build/build_fsl-imx-xwayland/tmp/work/imx8mmevk-poky-linux/linux-imx/{kernel}/defconfig` 
 * rebuild kernel
 
-# add recipes to image
+## add recipes to image
 * yocto/imx-5.10.35-2.0.0-build/conf/local.conf
 * yocto/imx-5.10.35-2.0.0-build/build_fsl-imx-xwayland/conf/local.conf
-```
-# package management
-IMAGE_INSTALL_append = " gnupg"
 
-# modem support
-IMAGE_INSTALL_append = " ppp"
-```
+## package management
+`IMAGE_INSTALL_append = " gnupg"`
+
+## modem support
+`IMAGE_INSTALL_append = " ppp"`
 * rebuild image
 
-# get list of recipes
+## get list of recipes
 run `bitbake -g $IMAGES` then look into the generated file 'pn-buildlist'

@@ -11,50 +11,33 @@ else
     exit 1
 fi
 
-# environment variables
-DOCKER_IMAGE_TAG="imx-yocto"
-DOCKER_WORKDIR="/workspaces/imx8mminievk/yocto"
-IMX_RELEASE="imx-5.4.70-2.3.5"
-YOCTO_DIR="${DOCKER_WORKDIR}/${IMX_RELEASE}-build"
-MACHINE="imx8mmevk"
-DISTRO="fsl-imx-xwayland"
-IMAGES="imx-image-core" # core-image-minimal, imx-image-multimedia
-REMOTE="https://source.codeaurora.org/external/imx/imx-manifest"
-BRANCH="imx-linux-zeus"
-MANIFEST=${IMX_RELEASE}".xml"
-# K_BUILDDIR="/tmp/work/imx8mmevk-poky-linux/linux-imx/5.10.35+gitAUTOINC+ef3f2cfc60-r0/"
-
-# Create build folder
-mkdir -p ${YOCTO_DIR}
-cd ${YOCTO_DIR}
-
-# configure git user (required for repo setup script)
+# workaround
 git config --global user.name "pentaloon"
 git config --global user.email "pentaloon@gmail.com"
 
-# Init repo
-repo init \
+#setup environment variables
+ROOT_DIR=$(pwd)
+source imx-5.4.70-2.5.3/env.sh
+
+if [[ -d "${YOCTO_DIR}/build_${DISTRO}/tmp/work" ]]; then
+    echo "starting up from existing repo: ${YOCTO_DIR}"
+    cd ${YOCTO_DIR}
+else
+    echo "setting up a new repo: ${YOCTO_DIR}"
+    # Create build folder
+    mkdir -p ${YOCTO_DIR}
+    cd ${YOCTO_DIR}
+
+    # init repo
+    repo init \
     -u ${REMOTE} \
     -b ${BRANCH} \
     -m ${MANIFEST}
-
-repo sync -j8
+    repo sync -j8
+fi
 
 # source the yocto env
 EULA=1 MACHINE="${MACHINE}" DISTRO="${DISTRO}" source imx-setup-release.sh -b build_${DISTRO}
-
-# update kernel config - this method is not preferred, create a new layer instead
-# if [[ -d "$(pwd)$K_BUILDDIR" ]]; then
-#     echo "* overriding kernel config"
-#     cp ./../../../defconfig ./$K_BUILDDIR/defconfig
-#     cp ./../../../.config ./$K_BUILDDIR/build/.config
-# fi
-
-# override local conf - this method is not preferred, create a new layer instead
-# if [[ -d "$(pwd)" ]]; then
-#     echo "* overriding local.conf"
-#     cp ./../../../local.conf ./conf/local.conf
-# fi
 
 function print_help
 {
