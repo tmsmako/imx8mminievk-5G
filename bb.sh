@@ -17,7 +17,7 @@ git config --global user.email "pentaloon@gmail.com"
 
 #setup environment variables
 ROOT_DIR=$(pwd)
-source cfg/imx-5.4.70-2.3.5/env.sh
+source cfg/imx-5.10.72-2.2.0/env.sh
 
 if [[ -d "${YOCTO_DIR}/build_${DISTRO}/tmp/work" ]]; then
     echo "starting up from existing repo: ${YOCTO_DIR}"
