@@ -36,8 +36,12 @@ else
     repo sync -j$(nproc)
 fi
 
+BUILD_DIR=${YOCTO_DIR}/build_${DISTRO}
+
 # source the yocto env
 EULA=1 MACHINE="${MACHINE}" DISTRO="${DISTRO}" source imx-setup-release.sh -b build_${DISTRO}
+
+cp ${ROOT_DIR}/cfg/${IMX_RELEASE}/*.conf $BUILD_DIR/conf/
 
 function print_help
 {

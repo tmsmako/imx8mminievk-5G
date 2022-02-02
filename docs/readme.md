@@ -32,3 +32,8 @@ https://elinux.org/Bitbake_Cheat_Sheet
 
 ## get list of recipes
 run `bitbake -g $IMAGES` then look into the generated file 'pn-buildlist'
+
+# fix runc source 
+`yocto/imx-5.10.72-2.2.0-build/sources/meta-virtualization/recipes-containers/runc/runc-opencontainers_git.bb`
+change branch name to main
+TODO: the patch might still fail though
