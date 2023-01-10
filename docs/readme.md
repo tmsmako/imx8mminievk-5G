@@ -1,13 +1,13 @@
 # references 
 devcontainer and yocto-build script implementations are based on the following materials from NXP
-https://www.nxp.com/design/software/embedded-software/i-mx-software/embedded-linux-for-i-mx-applications-processors:IMXLINUX
-https://www.nxp.com/docs/en/user-guide/IMX_YOCTO_PROJECT_USERS_GUIDE.pdf
-https://source.codeaurora.org/external/imx/imx-docker/tree/
-https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Useful-bitbake-commands/ta-p/1128559
-https://easylinuxji.blogspot.com/2019/03/replace-default-splash-screen-in-yocto.html
-https://www.nxp.com/design/training/i-mx-8m-mini-and-linux-online-hands-on:TIP-I-MX-8M-MINI-AND-LINUX-ONLINE-HANDS-ON
-https://docs.docker.com/engine/reference/builder/
-https://elinux.org/Bitbake_Cheat_Sheet
+* https://www.nxp.com/design/software/embedded-software/i-mx-software/embedded-linux-for-i-mx-applications-processors:IMXLINUX
+* https://www.nxp.com/docs/en/user-guide/IMX_YOCTO_PROJECT_USERS_GUIDE.pdf
+* https://source.codeaurora.org/external/imx/imx-docker/tree/
+* https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Useful-bitbake-commands/ta-p/1128559
+* https://easylinuxji.blogspot.com/2019/03/replace-default-splash-screen-in-yocto.html
+* https://www.nxp.com/design/training/i-mx-8m-mini-and-linux-online-hands-on:TIP-I-MX-8M-MINI-AND-LINUX-ONLINE-HANDS-ON
+* https://docs.docker.com/engine/reference/builder/
+* https://elinux.org/Bitbake_Cheat_Sheet
 
 # kernel
 
