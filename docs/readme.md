@@ -1,4 +1,6 @@
-# references 
+# Add support for 5G/LTE modems via USB on imx8m mini eval boards
+
+## references 
 devcontainer and yocto-build script implementations are based on the following materials from NXP
 * https://www.nxp.com/design/software/embedded-software/i-mx-software/embedded-linux-for-i-mx-applications-processors:IMXLINUX
 * https://www.nxp.com/docs/en/user-guide/IMX_YOCTO_PROJECT_USERS_GUIDE.pdf
@@ -9,9 +11,9 @@ devcontainer and yocto-build script implementations are based on the following m
 * https://docs.docker.com/engine/reference/builder/
 * https://elinux.org/Bitbake_Cheat_Sheet
 
-# kernel
+## kernel
 
-## enable generic cellular modem support via USB serial connection
+### enable generic cellular modem support via USB serial connection
 * run `bitbake virtual/kernel -c menuconfig`
 * set `CONFIG_USB_SERIAL_OPTION=y` by selecting *device drivers/usb support/usb serial converter support/usb driver for GSM and CDMA modems*
 * save `.config`
@@ -19,20 +21,20 @@ devcontainer and yocto-build script implementations are based on the following m
 * overwrite defconfig file `yocto/imx-{ver}-build/build_fsl-imx-xwayland/tmp/work/imx8mmevk-poky-linux/linux-imx/{kernel}/defconfig` 
 * rebuild kernel
 
-## add recipes to image
+### add recipes to image
 * yocto/imx-5.10.35-2.0.0-build/conf/local.conf
 * yocto/imx-5.10.35-2.0.0-build/build_fsl-imx-xwayland/conf/local.conf
 
-## package management
+### package management
 `IMAGE_INSTALL_append = " gnupg"`
 
-## modem support
+### modem support
 `IMAGE_INSTALL_append = " ppp"`
 * rebuild image
 
-## get list of recipes
+### get list of recipes
 run `bitbake -g $IMAGES` then look into the generated file 'pn-buildlist'
 
-# fix runc source 
+## fix runc source 
 `yocto/imx-5.10.72-2.2.0-build/sources/meta-virtualization/recipes-containers/runc/runc-opencontainers_git.bb`
 change branch name to main
