@@ -1,4 +1,4 @@
-# Add support for 5G/LTE modems via USB on imx8m mini eval boards
+# Add support for 5G/LTE modems via USB on imx8mm eval boards
 
 ## references 
 devcontainer and yocto-build script implementations are based on the following materials from NXP
